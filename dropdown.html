@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>The XMLHttpRequest Object</h1>
+
+    <h2>Select Your Division:</h2>
+
+    <p>Division: 
+     <select onchange="showSugg(this.value);">
+      <option value="/" selected>Select Division</option>
+      <option value="khulna">Khulna</option>
+      <option value="dhaka">Dhaka</option>
+      </select>
+    </p>
+    <p>Districts: 
+      <span id="sugg">
+       <select>
+       <option>Districts</option>      
+       </select>
+      </span>
+    </p> 
+
+    <script>
+      function showSugg(str) {
+        var xhttp;
+        if (str.length == 0) { 
+          document.getElementById("sugg").innerHTML = "";
+          return;
+        }
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("sugg").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "getsuggestions.php?q="+str, true);
+        xhttp.send();   
+      }
+    </script>
+
+</body>
+</html>
